@@ -1,0 +1,31 @@
+<mat-card>
+    <mat-card-title>{{ title }}</mat-card-title>
+    <mat-card-content>
+      <mat-spinner *ngIf="isLoading; else showForm"></mat-spinner>
+      <ng-template #showForm>
+        <form (submit)="onUpdatePost(postForm)" #postForm="ngForm" autocomplete="off">
+          <mat-form-field appearance="outline">
+            <mat-label>Post Title</mat-label>
+            <input matInput [ngModel]="post?.title" name="title" required>
+            <mat-error>Title field is required</mat-error>
+          </mat-form-field>
+  
+          <button class="img-btn" type="button" mat-stroked-button (click)="filePicker.click()">Pick An Image</button>
+          <span class="mat-caption">please upload png,jpeg,jpg</span>
+          <mat-error *ngIf="uploadHasError">{{ uploadErrorMessage }}</mat-error>
+          <div *ngIf="previewImage" class="image-preview">
+            <img [src]="imageUrl" height="100%" [alt]="postForm.value.title">
+          </div>
+          <input type="file" hidden #filePicker value="imageUrl" ngModel name="upload" (change)="onImagePicked($event, postForm)" accept="image/*">
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Post Content</mat-label>
+            <textarea matInput [ngModel]="post?.content" name="content" required rows="8"></textarea>
+            <mat-error>Content field is required</mat-error>
+          </mat-form-field>
+          <button color="accent" type="submit" mat-raised-button>Update Post</button>
+        </form>
+      </ng-template>
+    </mat-card-content>
+  </mat-card>
+  

@@ -1,0 +1,13 @@
+main {
+    width: 80%;
+    margin: 20px auto;
+}
+
+app-header {
+    width: 100%;
+}
+
+app-posts-list {
+    display: block;
+    margin-top: 50px;
+}
